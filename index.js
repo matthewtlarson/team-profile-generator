@@ -81,6 +81,13 @@ function restart () {
     choices: ['Engineer', 'Intern', 'Exit']
   }).then((answer) => {
     console.log(answer)
+    if (answer.newEmployee === 'Engineer') {
+      engQ();
+    } else if (answer.newEmployee === 'Intern') {
+      intQ();
+    } else {
+      makeHTML();
+    }
   })
 }
 
@@ -94,7 +101,7 @@ function init () {
   }
 )};
 
-function init () {
+function engQ () {
   inquirer
   .prompt(engineerQuestions)
   .then((data) => {
@@ -104,7 +111,7 @@ function init () {
   }
 )};
 
-function init () {
+function intQ () {
   inquirer
   .prompt(internQuestions)
   .then((data) => {
@@ -115,7 +122,9 @@ function init () {
 )};
 
 function makeHTML () {
-  fs.writeFile('index.html', page(data))
+  fs.writeFile('index.html', page(teamArray), err => {
+    if(err) throw err
+  })
 }
 
 init()
